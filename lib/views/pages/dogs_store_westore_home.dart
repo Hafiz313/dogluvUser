@@ -136,9 +136,6 @@ class _DogsStoreWebstorePageState extends State<DogsStoreWebstorePage> {
                     ],
                   ),
 
-
-
-
                 ],
 
               ),

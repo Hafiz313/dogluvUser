@@ -12,7 +12,7 @@ class ProfileThanksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-        backgroudColor:kBgSlider4 ,
+        backgroudColor:kBgBlueSlider4 ,
         backgroundImage: false,
         body: Container(
           width: double.infinity,

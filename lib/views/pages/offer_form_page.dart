@@ -11,6 +11,9 @@ import 'package:dogluv_user_app/views/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:dogluv_user_app/views/pages/package_leader_page.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class OfferFormPage extends StatefulWidget {
   final String name;
@@ -470,8 +473,9 @@ class _OfferFormPageState extends State<OfferFormPage> {
                                 : null,*/
                           ),
                           Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: AppSizes.appVerticalLg * .2),
+                              margin: EdgeInsets.only(
+                                  top: AppSizes.appVerticalLg * .2,
+                              ),
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 kIsThisYour,
@@ -617,11 +621,20 @@ class _OfferFormPageState extends State<OfferFormPage> {
                               horizontal: AppSizes.appHorizontalLg * 2.5,
                             ),
                             width: double.infinity,
-                            child: roundRectangleBtn(txt: kPost,textColor: kLightBlue,bgColor:kWhiteColor,
+                            child:_notifier.state == ViewState.kBusy
+                                ? SpinKitWave(color: kWhiteColor,size: AppSizes.appVerticalLg *0.55,): roundRectangleBtn(txt: kPost,textColor: kLightBlue,bgColor:kWhiteColor,
                                 onPressed: () async{
-                                //  await  _notifier.validateOfferForm();
+                                  await  _notifier.validateOfferForm();
 
-                                 Navigator.pushNamed(context, MyProfilePage.id);
+                                  if(_notifier.isSellServicesForm){
+                                   // Navigator.pushNamed(context, PostPage.id);
+                                    Fluttertoast.showToast(msg: "${_notifier.authMsg}", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM,);
+                                  }
+                                  else{
+                                    print("----------------not ok------------------");
+                                    Fluttertoast.showToast(msg: "${_notifier.authMsg}", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM,
+                                    );
+                                  }
                                 }
                             ),
                           ),

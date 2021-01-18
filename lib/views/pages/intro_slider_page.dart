@@ -139,7 +139,7 @@ class _IntroScreenState extends State<IntroScreen> {
   }
   Widget _step3() {
     return  Container(
-      color: kBgSlider4,
+      color: kBgBlueSlider4,
       child: Column(
         children: [
           SizedBox(height: AppSizes.appVerticalLg * 1.5,),

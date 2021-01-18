@@ -11,6 +11,7 @@ Widget rectangleBtn({
   @required String txt,
   @required GestureTapCallback onPressed,
   Color bgColor,
+  double fontSizeValue
  // bool progressBar
 }) {
   return FlatButton(
@@ -18,9 +19,9 @@ Widget rectangleBtn({
     textColor: Colors.white,
     disabledColor: bgColor?? Colors.grey,
     disabledTextColor: Colors.white,
-    padding: EdgeInsets.all(8.0),
+    padding: EdgeInsets.symmetric(vertical: AppSizes.appVerticalLg * 0.2,horizontal: AppSizes.appHorizontalLg * 0.6),
     onPressed:/*progressBar? null:*/onPressed,
-    child:/*progressBar? SpinKitWave(color: Colors.white,size: AppSizes.appVerticalLg *0.55,):*/ Text(txt, style: TextStyle(fontSize: 22),)
+    child:/*progressBar? SpinKitWave(color: Colors.white,size: AppSizes.appVerticalLg *0.55,):*/ Text(txt, style: TextStyle(color: kLightBlue,fontSize:fontSizeValue ?? 22,fontFamily: "Poppins" ),)
   );
 }
 Widget roundRectangleBtn({
@@ -45,7 +46,8 @@ Widget roundRectangleBtn({
     onPressed:onPressed,
     child: Text(
       txt,
-      style: TextStyle(fontSize: 15 ?? fontSize ),
+
+      style: TextStyle(fontSize: 15 ?? fontSize,fontFamily: "Poppins" ),
     ),
   );
 }
@@ -80,7 +82,7 @@ Widget roundTransparentBtn({
     onPressed:onPressed,
     child: Text(
       txt,
-      style: TextStyle(fontSize: 15 ?? fontSize ),
+      style: TextStyle(fontSize: 15 ?? fontSize,fontFamily: "Poppins" ),
     ),
   );
 }

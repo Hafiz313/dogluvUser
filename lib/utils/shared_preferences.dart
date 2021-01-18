@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const String kLoginId= "login_response";
+const String kIsLogin= "check_is_login";
 
 class SessionManager {
 

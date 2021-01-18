@@ -5,10 +5,8 @@ import 'package:dogluv_user_app/utils/app_state.dart';
 import 'package:dogluv_user_app/utils/app_text_styles.dart';
 import 'package:dogluv_user_app/utils/volidators.dart';
 import 'package:dogluv_user_app/views/pages/base_scaffold.dart';
-import 'package:dogluv_user_app/views/pages/create_profile_form.dart';
 import 'package:dogluv_user_app/views/pages/forget_password_page.dart';
 import 'package:dogluv_user_app/views/pages/intro_slider_page.dart';
-import 'package:dogluv_user_app/views/pages/look_for_page.dart';
 import 'package:dogluv_user_app/views/pages/permissin_location_page.dart';
 import 'package:dogluv_user_app/views/pages/register_page.dart';
 import 'package:dogluv_user_app/views/widgets/app_buttons.dart';
@@ -39,6 +37,7 @@ class _SignInPageState extends State<SignInPage> {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
             children: [
               SizedBox(height: AppSizes.appVerticalLg *1.5,),
               Container(
@@ -49,7 +48,6 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               ),
               SizedBox(height: AppSizes.appVerticalLg *.3,),
-
               Form(
                 key: _notifier.signInForm,
                 child: Column(
@@ -60,7 +58,7 @@ class _SignInPageState extends State<SignInPage> {
                     SizedBox(height: AppSizes.appVerticalLg *.1,),
                     simpleTxtField(
                       labelTxt: kEnterEmail,
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.text,
                       onsaved: (value) => _notifier.signInEmail = value,
                       validator: (value) => value.isEmpty ? "$kEmail $kCanNempty"
                           : validateEmail(value) != true
@@ -106,7 +104,8 @@ class _SignInPageState extends State<SignInPage> {
 
                         await _notifier.validateAndSubmitSignIn();
                         if(_notifier.isSignIn){
-                          Navigator.pushNamed(context, PermissionLocationPage.id);
+                          Navigator.pushNamed(context, IntroScreen.id);
+                        //  Navigator.pushNamed(context, PermissionLocationPage.id);
                           Fluttertoast.showToast(msg: "${_notifier.authMsg}", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM,);
                         }
                         else{
@@ -140,7 +139,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ],
               ),
-              SizedBox(height: AppSizes.appVerticalLg *.5,),
+              SizedBox(height: AppSizes.appVerticalLg *2,),
             ],
           ),
         ),

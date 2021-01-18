@@ -19,8 +19,8 @@ import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
-class PostPage extends StatelessWidget {
-  static const id="post_page";
+class PackageLeaderPage extends StatelessWidget {
+  static const id="package_leader_page";
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,6 @@ class PostPage extends StatelessWidget {
                 ),
                 child: CircleButton(iconData:FontAwesomeIcons.bars,iconColor: Colors.white ,iconSize: 15,)),
           ),
-
           SingleChildScrollView(
             child: Container(
               margin: EdgeInsets.only(top: AppSizes.appVerticalLg * 1),
@@ -80,9 +79,52 @@ class PostPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
-                        image: AssetImage("images/standerdpost.png"),
+                        image: AssetImage("images/basic_post.png"),
                         fit: BoxFit.fill
                       )
+
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(kBasicPost, style: simpleText(color: kGreenTextBg),),
+                        SizedBox(height: AppSizes.appVerticalLg * 0.1,),
+                        Row(
+                          children: [
+                            Image(image: AssetImage("images/clock_blue.png"),width: AppSizes.appVerticalLg * 0.5,),
+                            SizedBox(width: AppSizes.appVerticalLg * 0.2,),
+                            Text("72h",style: simpleText(color:kWhiteColor,fontSize: 20),),
+                            SizedBox(width: AppSizes.appVerticalLg * 0.25,),
+                            Image(image: AssetImage("images/vertical_bar_blue.png"),height: AppSizes.appVerticalLg * 0.5,),
+                            SizedBox(width: AppSizes.appVerticalLg * 0.25,),
+                            Image(image: AssetImage("images/basic_blue.png"),width: AppSizes.appVerticalLg * 0.5,),
+                            SizedBox(width: AppSizes.appVerticalLg * 0.2,),
+                            Text("€6",style: simpleText(color:kWhiteColor,fontSize: 20),),
+
+
+                          ],
+
+                        ),
+                        SizedBox(height: AppSizes.appVerticalLg * 0.4,),
+                        roundRectangleBtn(txt: kSELECT, onPressed: null,bgColor:kWhiteColor,textColor: kBlueTextPostBtnColor,isPadding: false)
+                      ],
+                    ),
+
+                  ),
+                  SizedBox(height: AppSizes.appVerticalLg * 0.3,),
+                  Container(
+                    height: AppSizes.appVerticalLg * 3,
+                    width: double.infinity,
+                    padding: EdgeInsets.all(
+                        AppSizes.appVerticalLg * 0.3
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                            image: AssetImage("images/standerdpost.png"),
+                            fit: BoxFit.fill
+                        )
 
                     ),
                     child: Column(
@@ -199,24 +241,6 @@ class PostPage extends StatelessWidget {
                     ),
 
                   ),
-                  SizedBox(height: AppSizes.appVerticalLg * 0.3,),
-                  Text(kForFrench,style: boldText(color: kWhiteColor,fontSize: 15),),
-                  Text(kPostText1,style: simpleText(color: kWhiteColor),),
-                  SizedBox(height: AppSizes.appVerticalLg * 0.2,),
-                  Text(kPostText2,style: simpleText(color: kWhiteColor),),
-                  SizedBox(height: AppSizes.appVerticalLg * 0.2,),
-                  Text(kPostText3,style: simpleText(color: kWhiteColor),),
-                  SizedBox(height: AppSizes.appVerticalLg * 0.2,),
-                  Text(kPostText4,style: simpleText(color: kWhiteColor),),
-                  Text(kPostTextPoint1,style: simpleText(color: kWhiteColor),),
-                  Text(kPostTextPoint2,style: simpleText(color: kWhiteColor),),
-                  Text(kPostTextPoint3,style: simpleText(color: kWhiteColor),),
-                  Text(kPostTextPoint4,style: simpleText(color: kWhiteColor),),
-                  Text(kPostTextPoint5,style: simpleText(color: kWhiteColor),),
-                  Text(kPostTextPoint6,style: simpleText(color: kWhiteColor),),
-                  SizedBox(height: AppSizes.appVerticalLg * 0.2,),
-                  Text(ForNonFrenchUser,style: boldText(color: kWhiteColor,fontSize: 15),),
-                  Text(ForNonFrenchUserText,style: simpleText(color: kWhiteColor),),
                   SizedBox(height: AppSizes.appVerticalLg *1,),
                   Container(
                     alignment: Alignment.center,
@@ -230,7 +254,7 @@ class PostPage extends StatelessWidget {
                     width: double.infinity,
                     child: roundRectangleBtn(txt: kCONFIRM,textColor: kLightBlue,bgColor:kWhiteColor,
                         onPressed: (){
-                          Navigator.pushNamed(context, ProfileThanksPage.id);
+                         // Navigator.pushNamed(context, ProfileThanksPage.id);
                         }
                     ),
                   ),

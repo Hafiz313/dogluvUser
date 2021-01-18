@@ -21,6 +21,7 @@ class WelcomePage extends StatelessWidget {
       internetFunction: false,
       body: SingleChildScrollView(
         child: Padding(
+
           padding:  EdgeInsets.symmetric(
               horizontal: AppSizes.appVerticalLg * 0.6
           ),
@@ -59,7 +60,7 @@ class WelcomePage extends StatelessWidget {
               Container(
                 child:Text(kTermsOfService,style:textTitle(fontSize: 13,color: Colors.white,underLine: true),),
               ),
-              SizedBox(height: AppSizes.appVerticalLg *.4,),
+              SizedBox(height: AppSizes.appVerticalLg *2,),
             ],
           ),
         ),

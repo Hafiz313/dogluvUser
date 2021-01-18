@@ -5,10 +5,11 @@ import 'package:dogluv_user_app/utils/app_api_ref.dart';
 import 'package:dogluv_user_app/utils/app_state.dart';
 import 'package:dogluv_user_app/utils/shared_preferences.dart';
 import "package:flutter/material.dart";
-import 'dart:io';
 import 'package:http/http.dart' as _http;
 import 'package:http/http.dart' as http;
 import 'dart:convert' as JSON;
+import 'dart:io';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthApi {
@@ -61,6 +62,10 @@ class AuthViewModel extends BaseViewmodel {
   GlobalKey<FormState> createDogsProfileFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> createProfileForm = GlobalKey<FormState>();
   GlobalKey<FormState> offerFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> sendRequestChildFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> sendRequestMainFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> searchFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> sellServicesFormKey = GlobalKey<FormState>();
   //AdoptionOrSale selector = AdoptionOrSale.adoption;
   String
       signUpUserName,
@@ -74,20 +79,42 @@ class AuthViewModel extends BaseViewmodel {
       signInPassword,
       dogsNameProfile,
       offerPrice,
+      sendRequestNameChild,
+      sendRequestAge,
+      sendRequestAdditionalPeople,
+      sendRequestDogsCare,
+      sendRequestUnableCare,
+      sendRequestSleepNight,
+      sendRequestHourLeftAlone,
+      sendRequestLeftAlone,
+      sendRequestDosExercised,
+      sendRequestAdoptDogsOther,
+      storeName,
+      strDiscountCode,
       offerNoOfAnimals,
       offerAddRegNo,
       offerCompanyReg,
       offerAboutDog,
+      sellServiceAddress,
+      tellUsServices,
       strAdoptionOrSale="Adoption",
+      strPhysicalOrWebsoter="Physical Address",
+      //strAdoptionOrSale="Adoption",
       dogsDescriptionProfile,
       authMsg,
       createProfileName;
   File createProfileImageFile;
   File createDogProfileImageFile;
+  File sellServicesImageFile;
   bool authError = true;
   bool isSignIn = false;
+  bool isOfferForm = false;
+  bool isSearchForm = false;
   bool isCreateProfileForm = false;
   bool isCreateDogsProfileForm = false;
+  bool isSellServicesForm = false;
+  bool isProSeller= false;
+  bool isAvailableAdoption= false;
   bool isSignUp = false;
   bool isForgetPassword = false;
   String ageValue = 'Select Age';
@@ -99,6 +126,14 @@ class AuthViewModel extends BaseViewmodel {
  // int groupValue = -1;
   int purebredNonPurebredGroup =0;
   int isThisYourGroup =0;
+  int isHouseHoldAllergies =0;
+  int isSendRequestDogsYear =0;
+  int isSendRequestOwnRent =0;
+  int isSendRequestFollowingDogs =0;
+  int isSendRequestHaveFence =0;
+  int isSendRequestFirstPet =0;
+  int isSendRequestOtherPet =0;
+  int isSendRequestAdoptDogs =0;
   int isYourAnimalGroup =0;
   int isMicroChippedGroup =0;
   List<String> localisationDogsItems = [
@@ -156,7 +191,7 @@ class AuthViewModel extends BaseViewmodel {
     '9',
   ];
 
-  List<String> localisationValuetems = [
+  List<String> localisationValueItems = [
     'Select Localisation',
     '1',
     '2',
@@ -175,17 +210,59 @@ class AuthViewModel extends BaseViewmodel {
     'Man',
     'Female',
   ];
+  String searchSexValue = 'Select Sex';
+  List<String> searchSexItems = [
+    'Select Sex',
+    'Man',
+    'Female',
+  ];
+  String searchDistanceValue = 'Select Distance';
+  List<String> searchDistanceItems = [
+    'Select Distance',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+  ];
 
-  String offerBreedValue = 'Select Breed';
 
+  String sellServiceActivityValue = 'Select Activity';
+  String searchBreedValue = 'Select Breed';
+  List<String> searchBreedItems = [
+    'Select Breed',
+    'Arabic',
+  ];
+    String offerBreedValue = 'Select Breed';
   List<String> offerBreedItems = [
     'Select Breed',
+    'Arabic',
+  ];
+  List<String> sellServicesActivityItems = [
+    'Select Activity',
     'Arabic',
   ];
   String offerAgeValue = 'Under 8 weeks';
   List<String> offerAgeItems = [
     'Under 8 weeks',
     'Arabic',
+  ];
+  String searchAgeValue = 'Select Age';
+  List<String> searchAgeItems = [
+    'Select Age',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
   ];
 
   bool validateAndSave({
@@ -200,6 +277,7 @@ class AuthViewModel extends BaseViewmodel {
   }
 
   Future<void> validateAndSubmitSignUp() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(ViewState.kBusy);
     try {
       if (validateAndSave(formstate: signUpFormKey.currentState)) {
@@ -216,6 +294,8 @@ class AuthViewModel extends BaseViewmodel {
           // _sessionManager.setLoginResponse("adsfjkl");
           isSignUp = true;
           authError = false;
+          prefs.setString(kLoginId, json.encode(body));
+          prefs.setBool(kIsLogin, true);
           // authMsg = body['message'];
         } else {
           authError = true;
@@ -249,8 +329,10 @@ class AuthViewModel extends BaseViewmodel {
 
           isSignIn = true;
           authError = false;
+
           authMsg = body['message'];
           prefs.setString(kLoginId, json.encode(body));
+          prefs.setBool(kIsLogin, true);
         } else {
           authError = true;
           authMsg = body['message'];
@@ -426,13 +508,13 @@ class AuthViewModel extends BaseViewmodel {
         if (body['status']) {
           print("-----------------adsf$body------------------");
 
-          isSignIn = true;
+          isOfferForm = true;
           authError = false;
         //  authMsg = body['message'];
         } else {
           authError = true;
-         // authMsg = body['message'];
-        //  print("-------------------Sign  in not success${authMsg = body['message']}----------------");
+         authMsg = body['message'];
+          print("-------------------Sign  in not success${authMsg = body['message']}----------------");
         }
       }
       print("not success");
@@ -444,63 +526,232 @@ class AuthViewModel extends BaseViewmodel {
     }
     setState(ViewState.kIdle);
   }
-}
-
-/* Future<void> validateSecondSignUp() async {
+  Future<void> validateSellServicesPost() async {
     setState(ViewState.kBusy);
-    print("----------------$ageValue and $signUpGender---------------");
-    print("------------------$signupFirstName $signupLastName $signupUserName"" $signUpEmail and password : $signUpPassword $signUpConformPassword $signUpImageFile-------------");
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var userId = json.decode(pref.getString(kLoginId))['response'][0]['id'];
 
-     try{
+   // print("------------------id:$userId name: $dogsNameProfile  ageDogd : $ageDogsValue , sexDos $dogsSexValue, breed $breedValue,laoc :$localisationDogsValue ,des : $dogsDescriptionProfile, image:$createDogProfileImageFile--------------");
 
-       final file = await http.MultipartFile.fromPath('img', signUpImageFile.path);
-       final imageUploadRequest = http.MultipartRequest('POST', Uri.parse(kSignUpApi));
-       //imageUploadRequest.fields['fname'] = signupFirstName;
-       imageUploadRequest.fields['lname'] = signupLastName;
-       imageUploadRequest.fields['username'] = signupUserName;
-       imageUploadRequest.fields['email'] = signUpEmail;
-       imageUploadRequest.fields['password'] = signUpPassword;
-       imageUploadRequest.fields['cpassword'] = signUpConformPassword;
-       imageUploadRequest.fields['age'] = ageValue.toString();
-      // imageUploadRequest.fields['gender'] = signUpGender.toString();
-       imageUploadRequest.files.add(file);
-       final streamedResponse = await imageUploadRequest.send();
-       final response = await http.Response.fromStream(streamedResponse);
-      // var body = json.decode(response.body);
-       print("-----------------${response.body}------------------");
+    try {
+      if (validateAndSave(formstate: sellServicesFormKey.currentState)) {
 
-      final response = await http.post(kSignupApi, body: {
-        "fname":signupFirstName,
-        "lname":signupLastName,
-        "username":signupUserName,
-        "email": signupEmail,
-        "password": signupPassword,
-        "cpassword": signupConformPassword,
-        "age": ageValue.toString(),
-        "gender":signUpGender,
-        "img":""
-      });
-      var body = json.decode(response.body);
-      print("-----------------${response.body}------------------");
-      print("-----------------${body['status']}------------------");
-     if (body['status']) {
-        print("-----------------$body------------------");
-        isSignupSecond = true;
-        authMsg = body['message'];
-      }
-      else {
-        authError = true;
-        authMsg = body['message'];
+        print("------------------id:$userId phaysical :$strPhysicalOrWebsoter,"
+            "name: $storeName  sellServiceActivityValue : $sellServiceActivityValue ,"
+            "sellServiceAddress :$sellServiceAddress,"
+            " strDiscountCode $strDiscountCode,"
+            "tellUsServices :$tellUsServices ,"
+            "image:$sellServicesImageFile--------------");
 
+        final file = await http.MultipartFile.fromPath(
+            'img', sellServicesImageFile.path);
+        final imageUploadRequest =
+        http.MultipartRequest('POST', Uri.parse(kStoreSellServices));
+        imageUploadRequest.fields['user_id'] = "$userId";
+        imageUploadRequest.fields['service'] = strPhysicalOrWebsoter;
+        imageUploadRequest.fields['store_name'] = storeName;
+        imageUploadRequest.fields['activity'] = sellServiceActivityValue;
+        imageUploadRequest.fields['web_address'] = sellServiceAddress;
+        imageUploadRequest.fields['discount_code'] = strDiscountCode;
+        imageUploadRequest.fields['about_service'] = tellUsServices;
+        imageUploadRequest.files.add(file);
+        final streamedResponse = await imageUploadRequest.send();
+        final response = await http.Response.fromStream(streamedResponse);
+        var body = json.decode(response.body);
+
+        if (body['status']) {
+          print("-----------------$body------------------");
+          isSellServicesForm = true;
+          authMsg = body['message'];
+        } else {
+          authError = true;
+          authMsg = body['message'];
+        }
       }
       print("not success");
       authError = false;
-
+    } catch (e) {
+      //  authMsg = e.message.toString();
+      print(
+          "------------------------${e.message.toString()}-------------------");
+      authError = true;
     }
-     catch (e) {
+    setState(ViewState.kIdle);
+  }
+  Future<void> validateReportInappropriateMassagePost() async {
+    setState(ViewState.kBusy);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var userId = json.decode(pref.getString(kLoginId))['response'][0]['id'];
+
+    try {
+      print("------------------userId:$userId --------------");
+      final response = await http.post(kInappropriateMsgApi, body: {"user_id": "13","report_by":"$userId","description":"hello this is reporter" });
+      var body = json.decode(response.body);
+      print("-----------------$body------------------");
+
+        if (body['status']) {
+          isForgetPassword = true;
+          authError = false;
+          authMsg = body['message'];
+        } else {
+          authError = true;
+          authMsg = body['message'];
+          print("-------------------Msg: ${authMsg = body['message']}----------------");
+        }
+   //   }
+      print("not success");
+      authError = false;
+    } catch (e) {
+     authMsg = e.message.toString();
+      authError = true;
+    }
+    setState(ViewState.kIdle);
+  }
+  Future<void> validateReportInappropriatePhotoPost() async {
+    setState(ViewState.kBusy);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var userId = json.decode(pref.getString(kLoginId))['response'][0]['id'];
+
+    try {
+      print("------------------photo userId:$userId --------------");
+      final response = await http.post(kInappropriatePhotoApi, body: {"user_id": "1","report_by":"$userId","description":"hello this is reporter for photo" });
+      var body = json.decode(response.body);
+      print("-----------------${response.body}------------------");
+      //  if (validateAndSave(formstate: forgetFormKey.currentState)) {
+
+
+      if (body['status']) {
+        isForgetPassword = true;
+        authError = false;
+        authMsg = body['message'];
+      } else {
+        authError = true;
+        authMsg = body['message'];
+        print("-------------------success${authMsg = body['message']}----------------");
+      }
+      //   }
+      print("not success");
+      authError = false;
+    } catch (e) {
       authMsg = e.message.toString();
-      print("------------------------${e.message.toString()}-------------------");
-       authError = true;
-     }
-     setState(ViewState.kIdle);
-    }*/
+      print("-------------------SignIn not success${e.message.toString()}----------------");
+      authError = true;
+    }
+    setState(ViewState.kIdle);
+  }
+  Future<void> validateReportInappropriateSpamPost() async {
+    setState(ViewState.kBusy);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var userId = json.decode(pref.getString(kLoginId))['response'][0]['id'];
+
+    try {
+      print("------------------Spam userId:$userId --------------");
+      final response = await http.post(kInappropriateSpamApi, body: {"user_id": "1","report_by":"$userId","description":"hello this is reporter for photo" });
+      var body = json.decode(response.body);
+      print("-----------------${response.body}------------------");
+      //  if (validateAndSave(formstate: forgetFormKey.currentState)) {
+
+
+      if (body['status']) {
+        isForgetPassword = true;
+        authError = false;
+        authMsg = body['message'];
+      } else {
+        authError = true;
+        authMsg = body['message'];
+        print("-------------------success${authMsg = body['message']}----------------");
+      }
+      //   }
+      print("not success");
+      authError = false;
+    } catch (e) {
+      authMsg = e.message.toString();
+      print("-------------------SignIn not success${e.message.toString()}----------------");
+      authError = true;
+    }
+    setState(ViewState.kIdle);
+  }
+  Future<void> validateReportInappropriateOtherPost() async {
+    setState(ViewState.kBusy);
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var userId = json.decode(pref.getString(kLoginId))['response'][0]['id'];
+
+    try {
+      print("------------------Other userId:$userId --------------");
+      final response = await http.post(kInappropriateOtherApi, body: {"user_id": "1","report_by":"$userId","description":"hello this is reporter for photo" });
+      var body = json.decode(response.body);
+      print("-----------------${response.body}------------------");
+      //  if (validateAndSave(formstate: forgetFormKey.currentState)) {
+
+
+      if (body['status']) {
+        isForgetPassword = true;
+        authError = false;
+        authMsg = body['message'];
+      } else {
+        authError = true;
+        authMsg = body['message'];
+        print("-------------------success${authMsg = body['message']}----------------");
+      }
+      //   }
+      print("not success");
+      authError = false;
+    } catch (e) {
+      authMsg = e.message.toString();
+      print("-------------------SignIn not success${e.message.toString()}----------------");
+      authError = true;
+    }
+    setState(ViewState.kIdle);
+  }
+
+  Future<void> validateSearchForm() async {
+
+    setState(ViewState.kBusy);
+    try {
+
+      if (validateAndSave(formstate: searchFormKey.currentState)) {
+        print("------------------"
+            "searchDistanceValue : $searchDistanceValue,"
+            "searchSexValue : $searchSexValue,"
+            "searchBreedValue : $searchBreedValue,"
+            "searchAgeValue:$searchAgeValue , "
+            "isProSeller:$isProSeller , "
+            "isAvailableAdoption:$isAvailableAdoption , "
+
+            " --------------");
+        final response = await http.post(kSearchFilterApi,
+            body: {
+              "distance":"12", //searchDistanceValue,
+              "sex": "male",//searchSexValue,
+              "breed": "bulldog",//searchBreedValue,
+              "age": "2",//searchAgeValue,
+              "status": "adopt",
+
+
+            });
+        var body = json.decode(response.body);
+        print("-----------------$body------------------");
+        if (body['status']) {
+          print("-----------------$body------------------");
+
+          isSearchForm = true;
+          authError = false;
+          //  authMsg = body['message'];
+        } else {
+          authError = true;
+          authMsg = body['message'];
+          print("-------------------Sign  in not success${authMsg = body['message']}----------------");
+        }
+      }
+      print("not success");
+      authError = false;
+    } catch (e) {
+      //  authMsg = e.message.toString();
+      //    print("-------------------Sign  in not success${ e.message.toString()}----------------");
+      authError = true;
+    }
+    setState(ViewState.kIdle);
+  }
+}
+
+

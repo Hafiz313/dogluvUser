@@ -11,6 +11,7 @@ import 'package:dogluv_user_app/views/pages/create_profile_slider_page.dart';
 import 'package:dogluv_user_app/views/pages/demo_page.dart';
 import 'package:dogluv_user_app/views/pages/offer_form_page.dart';
 import 'package:dogluv_user_app/views/pages/register_page.dart';
+import 'package:dogluv_user_app/views/pages/sell_services_page.dart';
 import 'package:dogluv_user_app/views/widgets/app_buttons.dart';
 import 'package:dogluv_user_app/views/widgets/text_field.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class LookForPage extends StatelessWidget {
                           ),
                           width: double.infinity,
                           child: roundRectangleBtn(txt: kMeet,textColor: kWhiteColor,bgColor:kBgSlider1,onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context){return OfferFormPage( name:"slkdfj",);}));
+                          //  Navigator.push(context, MaterialPageRoute(builder: (context){return OfferFormPage( name:"slkdfj",);}));
 
 
                           }),
@@ -77,7 +78,8 @@ class LookForPage extends StatelessWidget {
                           ),
                           width: double.infinity,
                           child: roundRectangleBtn(txt: kSell,textColor: kWhiteColor,bgColor:kOrangeColor,onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context){return OfferFormPage( name:kSell,);}));
+                            Navigator.pushNamed(context, OfferFormPage.id);
+                        //    Navigator.push(context, MaterialPageRoute(builder: (context){return OfferFormPage( name:kSell,);}));
                           }),
                         ),
                /* Container(
@@ -92,7 +94,10 @@ class LookForPage extends StatelessWidget {
                               horizontal: AppSizes.appHorizontalLg * 1.2
                           ),
                           width: double.infinity,
-                          child: roundRectangleBtn(txt: kServicesDogs,textColor: kWhiteColor,bgColor:kLightBlueColor),
+                          child: roundRectangleBtn(txt: kServicesDogs,textColor: kWhiteColor,bgColor:kLightBlueColor,onPressed: (){
+
+                            Navigator.pushNamed(context, SellServicesPage.id);
+                          }),
                         ),
 
 

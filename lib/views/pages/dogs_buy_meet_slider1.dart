@@ -18,7 +18,7 @@ class DogsBuyMeetSliderOne extends StatefulWidget {
 
 class _DogsBuyMeetSliderOneState extends State<DogsBuyMeetSliderOne> {
 
-  showAlertDialog(BuildContext context) {
+  showProfileAlertDialog(BuildContext context) {
 
     // ignore: non_constant_identifier_names
     Widget CancelButton = Container(
@@ -346,7 +346,7 @@ class _DogsBuyMeetSliderOneState extends State<DogsBuyMeetSliderOne> {
                         ),
                         child: InkWell(
                           onTap: (){
-                            showAlertDialog(context);
+                            showProfileAlertDialog(context);
 
                           },
 

@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:connectivity/connectivity.dart';
 import 'package:dogluv_user_app/utils/app_sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:connectivity/connectivity.dart';
 
 // ignore: must_be_immutable
 class BaseScaffold extends StatefulWidget {
@@ -56,26 +56,29 @@ class _BaseScaffoldState extends State<BaseScaffold> {
   Widget build(BuildContext context) {
     AppSizes().init(context);
     return SafeArea(
-      child: Scaffold(
-          body: ( _isNetworkConnected || !widget.internetFunction) ?
-          Container(
 
-            decoration:BoxDecoration(
-              color: widget.backgroudColor ?? Colors.blueAccent,
-                image: widget.backgroundImage ?DecorationImage(
-                  fit:BoxFit.fill,
-                    image: AssetImage("images/bg.png")
-                ): null
-            ),
-            child: widget.body,
-          ) :  Container(
-            height: AppSizes.screenHeight -
-                AppSizes.blockSizeVertical * 5.0,
-            child: Center(
-              child:
-              Image.asset("images/no_internet.png"),
-            ),
-          )),
+      child: Container(
+        child: Scaffold(
+            body: ( _isNetworkConnected || !widget.internetFunction) ?
+            Container(
+              width: double.infinity,
+              decoration:BoxDecoration(
+                color: widget.backgroudColor ?? Colors.blueAccent,
+                  image: widget.backgroundImage ?DecorationImage(
+                    fit:BoxFit.fill,
+                      image: AssetImage("images/bg.png")
+                  ): null
+              ),
+              child: widget.body,
+            ) :  Container(
+              height: AppSizes.screenHeight -
+                  AppSizes.blockSizeVertical * 5.0,
+              child: Center(
+                child:
+                Image.asset("images/no_internet.png"),
+              ),
+            )),
+      ),
     );
   }
 }

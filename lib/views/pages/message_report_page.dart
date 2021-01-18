@@ -1,3 +1,4 @@
+import 'package:dogluv_user_app/core/veiwmodels/auth_viewmodel.dart';
 import 'package:dogluv_user_app/utils/app_color.dart';
 import 'package:dogluv_user_app/utils/app_constant.dart';
 import 'package:dogluv_user_app/utils/app_sizes.dart';
@@ -11,6 +12,8 @@ import 'package:dogluv_user_app/views/pages/report_view_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
 
 
 class MessageReportPage extends StatefulWidget {
@@ -22,12 +25,20 @@ class MessageReportPage extends StatefulWidget {
 class _MessageReportPageState extends State<MessageReportPage> {
 
 
+  // ignore: missing_return
+  Future<void> getReportMessage(){
+    print("--------------dasdf-----------------");
+   // await _notifier.validateReportInappropriateMassagePost();
+
+  }
+
+
 
   showAlertDialog(BuildContext context) {
+   // final _notifier = Provider.of<AuthViewModel>(context,listen: false);
 
 
 
-    // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       backgroundColor:Color(0x01000000) ,
       contentPadding: EdgeInsets.fromLTRB(0,0,0,0),
@@ -53,10 +64,12 @@ class _MessageReportPageState extends State<MessageReportPage> {
                 Text(kReport,style: boldText(color: kTextBlueColor),),
                 SizedBox(height:AppSizes.appVerticalLg * 0.3 ,),
                 InkWell(
-                  onTap: (){
+                  onTap: () async {
+                  //  await Provider.of.validateReportInappropriateMassagePost();
+                 //   await Provider.of<AuthViewModel>(context).validateReportInappropriateMassagePost();
 
-                    print("-----------daflkdj-------------");
-                    Navigator.pushNamed(context,ReportViewPage.id);
+                  // getReportMessage();
+                   Navigator.pushNamed(context,ReportViewPage.id);
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(
@@ -166,7 +179,9 @@ class _MessageReportPageState extends State<MessageReportPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+       // final _notifier = Provider.of<AuthViewModel>(context);
         return alert;
+     // return Provider.value(value: _notifier, child: alert);;
       },
     );
   }
@@ -185,6 +200,7 @@ class _MessageReportPageState extends State<MessageReportPage> {
 
   @override
   Widget build(BuildContext context) {
+    final _notifier = Provider.of<AuthViewModel>(context,listen: false);
     return BaseScaffold(
       backgroundImage: false,
       body:  Container(
@@ -256,8 +272,13 @@ class _MessageReportPageState extends State<MessageReportPage> {
                                   top: AppSizes.appVerticalLg * 0.3
                               ),
                               child: InkWell(
-                                  onTap: (){
-                                    showAlertDialog(context);
+                                  onTap: () async {
+                                  //  await _notifier.validateReportInappropriateMassagePost();
+                                 //   await _notifier.validateReportInappropriatePhotoPost();
+                                //    await _notifier.validateReportInappropriateSpamPost();
+                                    await _notifier.validateReportInappropriateOtherPost();
+                                   // showAlertDialog(context);
+
 
                                   },
 

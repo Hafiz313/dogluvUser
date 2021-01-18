@@ -44,6 +44,7 @@ dev_dependencies:
   shared_preferences: ^0.5.12+4 # share preferences save data
   intro_slider: ^2.3.3 # for introduction slider page
   flutter_swiper: ^1.1.6 # for custom slider in flutter
+  google_maps_flutter: ^1.0.10 #for google map
 
 
 
@@ -80,6 +81,10 @@ flutter:
     - family: Poppins
       fonts:
         - asset: fonts/Poppins-Regular.ttf
+
+    - family: Pacifico
+      fonts:
+        - asset: fonts/Pacifico-Regular.ttf
 
 
 

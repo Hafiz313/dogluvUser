@@ -436,8 +436,6 @@ class _MessageViewPageState extends State<MessageViewPage> {
                                       ),
                                     ),
                                   ],
-
-
                                 ),
 
                               ],

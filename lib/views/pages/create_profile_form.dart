@@ -162,7 +162,7 @@ class _CreateProfileFormPageState extends State<CreateProfileFormPage> {
                               _notifier.localisationValue = data;
                             });
                           },
-                          items: _notifier.localisationValuetems.map<DropdownMenuItem<String>>((String value) {
+                          items: _notifier.localisationValueItems.map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
