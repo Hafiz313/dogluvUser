@@ -26,6 +26,103 @@ class _PostViewPageState extends State<PostViewPage> {
         body:
         Stack(
           children: [
+            Align(alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding:  EdgeInsets.symmetric(
+                    vertical: AppSizes.appVerticalLg * 0.3,
+                    horizontal: AppSizes.appHorizontalLg * 0.5
+                ),
+                child: Container(
+
+
+                  decoration: BoxDecoration(
+                      color: kGrayBarBg,
+                      borderRadius: BorderRadius.circular(20)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(width: AppSizes.appHorizontalLg * 0.4,),
+                      Padding(
+                        padding:  EdgeInsets.symmetric(
+                            vertical: AppSizes.appVerticalLg * 0.3
+                        ),
+                        child: InkWell(
+                          onTap: (){
+                            Navigator.pushNamed(context, PostViewPage.id);
+                          },
+                          child: Image(
+                              width: AppSizes.appHorizontalLg * 0.4,
+                              height: AppSizes.appVerticalLg * 0.4,
+                              image: AssetImage("images/home.png"
+                              )),
+                        ),
+                      ),
+
+                      Image(
+                          width: AppSizes.appHorizontalLg * 0.4,
+                          height: AppSizes.appVerticalLg * 0.4,
+                          image: AssetImage("images/gray_bar.png"
+                          )),
+
+                      Image(
+                          width: AppSizes.appHorizontalLg * 0.4,
+                          height: AppSizes.appVerticalLg * 0.4,
+                          image: AssetImage("images/hard_icon.png"
+                          )),
+
+                      Image(
+                          width: AppSizes.appHorizontalLg * 0.4,
+                          height: AppSizes.appVerticalLg * 0.4,
+                          image: AssetImage("images/gray_bar.png"
+                          )),
+
+                      Image(
+                          width: AppSizes.appHorizontalLg * 0.4,
+                          height: AppSizes.appVerticalLg * 0.4,
+                          image: AssetImage("images/card_icon.png"
+                          )),
+
+                      Image(
+                          width: AppSizes.appHorizontalLg * 0.4,
+                          height: AppSizes.appVerticalLg * 0.4,
+                          image: AssetImage("images/gray_bar.png"
+                          )),
+
+                      Image(
+                          width: AppSizes.appHorizontalLg * 0.4,
+                          height: AppSizes.appVerticalLg * 0.4,
+                          image: AssetImage("images/add_circle.png"
+                          )),
+
+                      Image(
+                          width: AppSizes.appHorizontalLg * 0.4,
+                          height: AppSizes.appVerticalLg * 0.4,
+                          image: AssetImage("images/gray_bar.png"
+                          )),
+
+
+                      Image(
+                          width: AppSizes.appHorizontalLg * 0.4,
+                          height: AppSizes.appVerticalLg * 0.4,
+                          image: AssetImage("images/king_icon.png"
+                          )),
+
+                      Image(
+                          width: AppSizes.appHorizontalLg * 0.4,
+                          height: AppSizes.appVerticalLg * 0.4,
+                          image: AssetImage("images/cross_icon.png"
+                          )),
+                      SizedBox(width: AppSizes.appHorizontalLg * 0.4,),
+
+
+
+                    ],
+                  ),
+                ),
+              ),
+
+            ),
             Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -328,103 +425,7 @@ class _PostViewPageState extends State<PostViewPage> {
                 ],
               ),
             ),
-            Align(alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding:  EdgeInsets.symmetric(
-                    vertical: AppSizes.appVerticalLg * 0.3,
-                    horizontal: AppSizes.appHorizontalLg * 0.5
-                ),
-                child: Container(
 
-
-                  decoration: BoxDecoration(
-                      color: kGrayBarBg,
-                      borderRadius: BorderRadius.circular(20)
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(width: AppSizes.appHorizontalLg * 0.4,),
-                      Padding(
-                        padding:  EdgeInsets.symmetric(
-                            vertical: AppSizes.appVerticalLg * 0.3
-                        ),
-                        child: InkWell(
-                          onTap: (){
-                            Navigator.pushNamed(context, PostViewPage.id);
-                          },
-                          child: Image(
-                              width: AppSizes.appHorizontalLg * 0.4,
-                              height: AppSizes.appVerticalLg * 0.4,
-                              image: AssetImage("images/home.png"
-                              )),
-                        ),
-                      ),
-
-                      Image(
-                          width: AppSizes.appHorizontalLg * 0.4,
-                          height: AppSizes.appVerticalLg * 0.4,
-                          image: AssetImage("images/gray_bar.png"
-                          )),
-
-                      Image(
-                          width: AppSizes.appHorizontalLg * 0.4,
-                          height: AppSizes.appVerticalLg * 0.4,
-                          image: AssetImage("images/hard_icon.png"
-                          )),
-
-                      Image(
-                          width: AppSizes.appHorizontalLg * 0.4,
-                          height: AppSizes.appVerticalLg * 0.4,
-                          image: AssetImage("images/gray_bar.png"
-                          )),
-
-                      Image(
-                          width: AppSizes.appHorizontalLg * 0.4,
-                          height: AppSizes.appVerticalLg * 0.4,
-                          image: AssetImage("images/card_icon.png"
-                          )),
-
-                      Image(
-                          width: AppSizes.appHorizontalLg * 0.4,
-                          height: AppSizes.appVerticalLg * 0.4,
-                          image: AssetImage("images/gray_bar.png"
-                          )),
-
-                      Image(
-                          width: AppSizes.appHorizontalLg * 0.4,
-                          height: AppSizes.appVerticalLg * 0.4,
-                          image: AssetImage("images/add_circle.png"
-                          )),
-
-                      Image(
-                          width: AppSizes.appHorizontalLg * 0.4,
-                          height: AppSizes.appVerticalLg * 0.4,
-                          image: AssetImage("images/gray_bar.png"
-                          )),
-
-
-                      Image(
-                          width: AppSizes.appHorizontalLg * 0.4,
-                          height: AppSizes.appVerticalLg * 0.4,
-                          image: AssetImage("images/king_icon.png"
-                          )),
-
-                      Image(
-                          width: AppSizes.appHorizontalLg * 0.4,
-                          height: AppSizes.appVerticalLg * 0.4,
-                          image: AssetImage("images/cross_icon.png"
-                          )),
-                      SizedBox(width: AppSizes.appHorizontalLg * 0.4,),
-
-
-
-                    ],
-                  ),
-                ),
-              ),
-
-            )
           ],
         ));
 

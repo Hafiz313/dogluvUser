@@ -66,6 +66,7 @@ class AuthViewModel extends BaseViewmodel {
   GlobalKey<FormState> sendRequestMainFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> searchFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> sellServicesFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> manageProfileFormKey = GlobalKey<FormState>();
   //AdoptionOrSale selector = AdoptionOrSale.adoption;
   String
       signUpUserName,
@@ -90,6 +91,8 @@ class AuthViewModel extends BaseViewmodel {
       sendRequestDosExercised,
       sendRequestAdoptDogsOther,
       storeName,
+      firstNameManageProfile,
+      emailManageProfile,
       strDiscountCode,
       offerNoOfAnimals,
       offerAddRegNo,
@@ -117,6 +120,7 @@ class AuthViewModel extends BaseViewmodel {
   bool isAvailableAdoption= false;
   bool isSignUp = false;
   bool isForgetPassword = false;
+  bool isReportMassage = false;
   String ageValue = 'Select Age';
   String localisationValue = 'Select Localisation';
   String ageDogsValue = 'Select Age';
@@ -304,16 +308,19 @@ class AuthViewModel extends BaseViewmodel {
               "-------------------Sign  in not success${authMsg = body['message']}----------------");
         }
       }
+      else{
+
+        authMsg = "Please fill all field";
+      }
 
       print("not success");
       authError = false;
     } catch (e) {
-      authMsg = e.message.toString();
+     // authMsg = e.message.toString();
       authError = true;
     }
     setState(ViewState.kIdle);
   }
-
   Future<void> validateAndSubmitSignIn() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(ViewState.kBusy);
@@ -325,11 +332,11 @@ class AuthViewModel extends BaseViewmodel {
             body: {"email": signInEmail, "password": signInPassword});
         var body = json.decode(response.body);
         if (body['status']) {
-          print("-----------------adsf$body------------------");
+          print("-----------------$body------------------");
+          setState(ViewState.kIdle);
 
           isSignIn = true;
           authError = false;
-
           authMsg = body['message'];
           prefs.setString(kLoginId, json.encode(body));
           prefs.setBool(kIsLogin, true);
@@ -340,14 +347,20 @@ class AuthViewModel extends BaseViewmodel {
               "-------------------Sign  in not success${authMsg = body['message']}----------------");
         }
       }
+      else{
+
+         authMsg = "Please fill all field";
+      }
       print("not success");
       authError = false;
+
     } catch (e) {
-      authMsg = e.message.toString();
+
       print("-------------------Sign  in not success${ e.message.toString()}----------------");
       authError = true;
     }
     setState(ViewState.kIdle);
+
   }
   Future<void> validateAndSubmitForgetEmail() async {
     setState(ViewState.kBusy);
@@ -590,7 +603,7 @@ class AuthViewModel extends BaseViewmodel {
       print("-----------------$body------------------");
 
         if (body['status']) {
-          isForgetPassword = true;
+          isReportMassage = true;
           authError = false;
           authMsg = body['message'];
         } else {
@@ -703,7 +716,6 @@ class AuthViewModel extends BaseViewmodel {
     }
     setState(ViewState.kIdle);
   }
-
   Future<void> validateSearchForm() async {
 
     setState(ViewState.kBusy);
@@ -743,6 +755,10 @@ class AuthViewModel extends BaseViewmodel {
           print("-------------------Sign  in not success${authMsg = body['message']}----------------");
         }
       }
+      else{
+        authMsg="alksdfj";
+
+      }
       print("not success");
       authError = false;
     } catch (e) {
@@ -751,6 +767,58 @@ class AuthViewModel extends BaseViewmodel {
       authError = true;
     }
     setState(ViewState.kIdle);
+  }
+  Future<void> matchListApi() async {
+
+    setState(ViewState.kBusy);
+    try {
+      if (validateAndSave(formstate: searchFormKey.currentState)) {
+        final response = await http.post(kMatchListApi,
+            body: {
+              "id":"38", //searchDistanceValue,
+            });
+        var body = json.decode(response.body);
+        print("-----------------$body------------------");
+        if (body['status']) {
+          print("-----------------$body------------------");
+
+          isSearchForm = true;
+          authError = false;
+          //  authMsg = body['message'];
+        } else {
+          authError = true;
+          authMsg = body['message'];
+          print("-------------------Sign  in not success${authMsg = body['message']}----------------");
+        }
+      }
+      else{
+        authMsg="alksdfj";
+
+      }
+      print("not success");
+      authError = false;
+    } catch (e) {
+      //  authMsg = e.message.toString();
+      //    print("-------------------Sign  in not success${ e.message.toString()}----------------");
+      authError = true;
+    }
+    setState(ViewState.kIdle);
+  }
+  Future<void> clearSharedPreferences(BuildContext context) async {
+
+    setState(ViewState.kBusy);
+    try {
+
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      await pref.clear();
+      Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
+      print("-----------adlkfj----------------");
+
+
+    } catch (e) {
+
+    }
+
   }
 }
 

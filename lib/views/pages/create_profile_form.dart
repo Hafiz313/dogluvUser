@@ -17,10 +17,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 
 class CreateProfileFormPage extends StatefulWidget {
   static const id="create_profile_form_page";
+  final  SwiperController swiperController ;
+
+  const CreateProfileFormPage({Key key, this.swiperController}) : super(key: key);
   @override
   _CreateProfileFormPageState createState() => _CreateProfileFormPageState();
 }
@@ -36,7 +40,9 @@ class _CreateProfileFormPageState extends State<CreateProfileFormPage> {
           Align(
             alignment: Alignment.topRight,
             child: InkWell(
-              onTap: () { Navigator.pushNamed(context, SignInPage.id);},
+              onTap: () {
+                widget.swiperController.next();
+              },
               child: Container(
                 margin: EdgeInsets.only(top: AppSizes.appVerticalLg * 0.3,right: AppSizes.appHorizontalLg * 0.5),
                 child: Icon(FontAwesomeIcons.times,color: kWhiteColor,size: 20,),

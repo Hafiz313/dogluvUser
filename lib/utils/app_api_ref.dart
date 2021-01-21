@@ -13,6 +13,7 @@ const kInappropriateMsgApi = 'https://dogluv.bazaaaar.com/public/api/inmessage';
 const kInappropriatePhotoApi = 'https://dogluv.bazaaaar.com/public/api/inphoto';
 const kInappropriateSpamApi = 'https://dogluv.bazaaaar.com/public/api/spam';
 const kInappropriateOtherApi = 'https://dogluv.bazaaaar.com/public/api/other';
+const kMatchListApi = 'https://dogluv.bazaaaar.com/public/api/match_list';
 
 
 

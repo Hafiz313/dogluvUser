@@ -31,7 +31,15 @@ class _IntroScreenState extends State<IntroScreen> {
           },
           loop: false,
           itemCount: steps.length,
-          pagination:SwiperPagination(margin: EdgeInsets.only(bottom: AppSizes.appVerticalLg *0.5)),
+
+          pagination:SwiperPagination(
+
+
+              margin: EdgeInsets.only(bottom: AppSizes.appVerticalLg *0.5),
+              builder: new DotSwiperPaginationBuilder(
+                color: kWhiteColor, activeColor: Colors.indigoAccent),
+
+          ),
         ),
       ),
     );

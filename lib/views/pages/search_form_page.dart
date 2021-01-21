@@ -31,9 +31,6 @@ class _SearchFormPageState extends State<SearchFormPage> {
   @override
   Widget build(BuildContext context) {
     final _notifier = Provider.of<AuthViewModel>(context);
-
-
-
     return BaseScaffold(
       backgroundImage: false,
       backgroudColor: kGrayColorBG,
@@ -405,15 +402,13 @@ class _SearchFormPageState extends State<SearchFormPage> {
                                         await _notifier.validateSearchForm();
 
                                         if (_notifier.isSearchForm) {
-                                          // Navigator.pushNamed(context, PostPage.id);
                                           Fluttertoast.showToast(
                                             msg: "${_notifier.authMsg}",
                                             toastLength: Toast.LENGTH_SHORT,
                                             gravity: ToastGravity.BOTTOM,
                                           );
                                         } else {
-                                          print(
-                                              "----------------not ok------------------");
+                                          print("----------------not ok------------------");
                                           Fluttertoast.showToast(
                                             msg: "${_notifier.authMsg}",
                                             toastLength: Toast.LENGTH_SHORT,

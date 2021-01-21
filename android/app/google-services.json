@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "832527752302",
+    "project_id": "dog-love-3de7b",
+    "storage_bucket": "dog-love-3de7b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832527752302:android:ec672f5b3b1f433d07da7f",
+        "android_client_info": {
+          "package_name": "com.highapp.dogluv_user_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832527752302-6ld660ktbslsfdgs79fmiuol5hi65a5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_u8sq81N0Q2Fk9iei9-XX7JQs2bkKtQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832527752302-6ld660ktbslsfdgs79fmiuol5hi65a5g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "832527752302-g6cgvs6rjj4lt441vgl2bs3d5k19a44c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.highapp.dogluvUserApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832527752302:android:384e8c967b06376207da7f",
+        "android_client_info": {
+          "package_name": "highapp.dog.doglove"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "832527752302-6ld660ktbslsfdgs79fmiuol5hi65a5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_u8sq81N0Q2Fk9iei9-XX7JQs2bkKtQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "832527752302-6ld660ktbslsfdgs79fmiuol5hi65a5g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "832527752302-g6cgvs6rjj4lt441vgl2bs3d5k19a44c.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.highapp.dogluvUserApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,6 +5,7 @@ import 'package:dogluv_user_app/utils/app_state.dart';
 import 'package:dogluv_user_app/utils/app_text_styles.dart';
 import 'package:dogluv_user_app/utils/volidators.dart';
 import 'package:dogluv_user_app/views/pages/base_scaffold.dart';
+import 'package:dogluv_user_app/views/pages/dogs_buy_meet_slider.dart';
 import 'package:dogluv_user_app/views/pages/forget_password_page.dart';
 import 'package:dogluv_user_app/views/pages/intro_slider_page.dart';
 import 'package:dogluv_user_app/views/pages/permissin_location_page.dart';
@@ -25,6 +26,29 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+
+  showProcessBar(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+        backgroundColor:Color(0x01000000) ,
+        contentPadding: EdgeInsets.fromLTRB(0,0,0,0),
+        content: Container(
+          height: 50,
+          child: SpinKitWave(color: kWhiteColor,size: AppSizes.appVerticalLg *0.55,),
+
+
+
+        ));
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // final _notifier = Provider.of<AuthViewModel>(context);
+        return alert;
+        // return Provider.value(value: _notifier, child: alert);;
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     final _notifier = Provider.of<AuthViewModel>(context);
@@ -99,16 +123,18 @@ class _SignInPageState extends State<SignInPage> {
                           horizontal: AppSizes.appHorizontalLg * 1
                       ),
                       width: double.infinity,
-                      child: _notifier.state == ViewState.kBusy
-                          ? SpinKitWave(color: kWhiteColor,size: AppSizes.appVerticalLg *0.55,): roundRectangleBtn(txt: kSignIn,textColor: kBlueColorButton,bgColor: kLightBlue,onPressed: () async {
-
+                      child:/* _notifier.state == ViewState.kBusy
+                          ? SpinKitWave(color: kWhiteColor,size: AppSizes.appVerticalLg *0.55,):*/ roundRectangleBtn(txt: kSignIn,textColor: kBlueColorButton,bgColor: kLightBlue,onPressed: () async {
+                        showProcessBar(context);
                         await _notifier.validateAndSubmitSignIn();
                         if(_notifier.isSignIn){
-                          Navigator.pushNamed(context, IntroScreen.id);
-                        //  Navigator.pushNamed(context, PermissionLocationPage.id);
-                          Fluttertoast.showToast(msg: "${_notifier.authMsg}", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM,);
+                          Navigator.pop(context);
+                          Navigator.pushNamed(context, DogsBuyMeetSlider.id);
+                          _notifier.isSignIn=false;
+                         // Fluttertoast.showToast(msg: "${_notifier.authMsg}", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM,);
                         }
                         else{
+                          Navigator.pop(context);
                           print("----------------not ok------------------");
                           Fluttertoast.showToast(msg: "${_notifier.authMsg}", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM,
                           );

@@ -10,7 +10,6 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 
 class CreateProfileSliderPage extends StatefulWidget {
   static const id="create_profile_slider_page";
-
   @override
   _CreateProfileSliderPageState createState() => new _CreateProfileSliderPageState();
 }
@@ -20,16 +19,22 @@ class _CreateProfileSliderPageState extends State<CreateProfileSliderPage> {
 
   @override
   Widget build(BuildContext context) {
+    SwiperController swiperController = SwiperController() ;
     final List<Widget> steps = [
-      _step0(),
-      _step1(),
-      _step2(),
+      _step0( swiperController),
+      _step1(swiperController),
+      _step2(swiperController),
       _step3(),
     ];
     return Scaffold(
       backgroundColor: kGrayColorBG,
       body: SafeArea(
         child: Swiper(
+          controller: swiperController,
+
+
+
+
           itemBuilder: (BuildContext context, int index) {
             return steps[index];
           },
@@ -41,32 +46,32 @@ class _CreateProfileSliderPageState extends State<CreateProfileSliderPage> {
     );
   }
 
-  Widget _step0() {
+  Widget _step0(SwiperController swiperController) {
     return Padding(
       padding:  EdgeInsets.symmetric(
         vertical: AppSizes.appVerticalLg * 1
       ),
-      child: CreateProfilePage(),
+      child: CreateProfilePage(swiperController: swiperController,),
     );
   }
 
-  Widget _step1() {
+  Widget _step1(SwiperController swiperControlle) {
     return Padding(
       padding:  EdgeInsets.only(
           top: AppSizes.appVerticalLg * 0.8,
         bottom: AppSizes.appVerticalLg * 0.3
       ),
-      child: CreateProfileFormPage(),
+      child: CreateProfileFormPage(swiperController: swiperControlle,),
     );
   }
 
-  Widget _step2() {
+  Widget _step2(SwiperController swiperControlle) {
     return Padding(
       padding:  EdgeInsets.only(
           top: AppSizes.appVerticalLg * 0.8,
           bottom: AppSizes.appVerticalLg * 0.3
       ),
-      child: CreateProfileImagePage(),
+      child: CreateProfileImagePage(swiperController:swiperControlle ,),
     );
   }
   Widget _step3() {

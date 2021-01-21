@@ -62,9 +62,15 @@ class _DogsBuyMeetSliderState extends State<DogsBuyMeetSlider> {
                     SizedBox(height:AppSizes.appVerticalLg * 0.3 ,),
                     InkWell(
                       onTap: () async {
+                        showProcessBar(context);
                         await Provider.of<AuthViewModel>(context,listen: false).validateReportInappropriateMassagePost();
-                        Fluttertoast.showToast(msg: "${Provider.of<AuthViewModel>(context,listen: false).authMsg}", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM,
-                        );
+                     //   if(Provider.of<AuthViewModel>(context,listen: false).isReportMassage){
+                          Fluttertoast.showToast(msg: "${Provider.of<AuthViewModel>(context,listen: false).authMsg}", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM,);
+                          Navigator.pop(context);
+                          Navigator.pushNamed(context,ReportViewPage.id);
+
+                       // }
+
 
                       },
                       child:  Container(
@@ -88,60 +94,84 @@ class _DogsBuyMeetSliderState extends State<DogsBuyMeetSlider> {
                       ),
                     ),
                     Divider(thickness: 1,),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppSizes.appHorizontalLg * 0.6,
-                          vertical: AppSizes.appVerticalLg * 0.1
-                      ),
-                      child: Row(
-                        children: [
-                          Image(image:AssetImage("images/photos_icon.png"),
-                            width: AppSizes.appVerticalLg * 0.3,
-                          ),
-                          SizedBox(width: AppSizes.appVerticalLg * 0.15,),
-                          Text(kInappropriatePhotos,style: boldText(color: kGrayText,fontSize: 15),),
+                    InkWell(
+                      onTap: () async {
+                        await Provider.of<AuthViewModel>(context,listen: false).validateReportInappropriatePhotoPost();
+                        Fluttertoast.showToast(msg: "${Provider.of<AuthViewModel>(context,listen: false).authMsg}", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM,
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppSizes.appHorizontalLg * 0.6,
+                            vertical: AppSizes.appVerticalLg * 0.1
+                        ),
+                        child: Row(
+                          children: [
+                            Image(image:AssetImage("images/photos_icon.png"),
+                              width: AppSizes.appVerticalLg * 0.3,
+                            ),
+                            SizedBox(width: AppSizes.appVerticalLg * 0.15,),
+                            Text(kInappropriatePhotos,style: boldText(color: kGrayText,fontSize: 15),),
 
 
-                        ],
+                          ],
 
-                      ),
-                    ),
-                    Divider(thickness: 1,),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppSizes.appHorizontalLg * 0.6,
-                          vertical: AppSizes.appVerticalLg * 0.1
-                      ),
-                      child: Row(
-                        children: [
-                          Image(image:AssetImage("images/feels_icon.png"),
-                            width: AppSizes.appVerticalLg * 0.3,
-                          ),
-                          SizedBox(width: AppSizes.appVerticalLg * 0.15,),
-                          Text(kFeelsLikeSpam,style: boldText(color: kGrayText,fontSize: 15),),
-
-
-                        ],
-
+                        ),
                       ),
                     ),
                     Divider(thickness: 1,),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: AppSizes.appHorizontalLg * 0.6,
-                          vertical: AppSizes.appVerticalLg * 0.1
+                    InkWell(
+                      onTap: () async {
+                        await Provider.of<AuthViewModel>(context,listen: false).validateReportInappropriateSpamPost();
+                        Fluttertoast.showToast(msg: "${Provider.of<AuthViewModel>(context,listen: false).authMsg}", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM,
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppSizes.appHorizontalLg * 0.6,
+                            vertical: AppSizes.appVerticalLg * 0.1
+                        ),
+                        child: Row(
+                          children: [
+                            Image(image:AssetImage("images/feels_icon.png"),
+                              width: AppSizes.appVerticalLg * 0.3,
+                            ),
+                            SizedBox(width: AppSizes.appVerticalLg * 0.15,),
+                            Text(kFeelsLikeSpam,style: boldText(color: kGrayText,fontSize: 15),),
+
+
+                          ],
+
+                        ),
                       ),
-                      child: Row(
-                        children: [
-                          Image(image:AssetImage("images/other_icon.png"),
-                            width: AppSizes.appVerticalLg * 0.3,
-                          ),
-                          SizedBox(width: AppSizes.appVerticalLg * 0.15,),
-                          Text(kOther,style: boldText(color: kGrayText,fontSize: 15),),
+                    ),
+                    Divider(thickness: 1,),
+                    InkWell(
+                      onTap: () async {
+                        showProcessBar(context);
+                        await Provider.of<AuthViewModel>(context,listen: false).validateReportInappropriateOtherPost();
+                        Fluttertoast.showToast(msg: "${Provider.of<AuthViewModel>(context,listen: false).authMsg}", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM,
+                        );
+
+                      },
+
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: AppSizes.appHorizontalLg * 0.6,
+                            vertical: AppSizes.appVerticalLg * 0.1
+                        ),
+                        child: Row(
+                          children: [
+                            Image(image:AssetImage("images/other_icon.png"),
+                              width: AppSizes.appVerticalLg * 0.3,
+                            ),
+                            SizedBox(width: AppSizes.appVerticalLg * 0.15,),
+                            Text(kOther,style: boldText(color: kGrayText,fontSize: 15),),
 
 
-                        ],
+                          ],
 
+                        ),
                       ),
                     ),
 
@@ -182,11 +212,13 @@ class _DogsBuyMeetSliderState extends State<DogsBuyMeetSlider> {
     );
   }
   showProcessBar(BuildContext context) {
-    final _notifier = Provider.of<AuthViewModel>(context,listen: false);
     AlertDialog alert = AlertDialog(
       backgroundColor:Color(0x01000000) ,
       contentPadding: EdgeInsets.fromLTRB(0,0,0,0),
       content: Container(
+        height: 50,
+        child: SpinKitWave(color: kWhiteColor,size: AppSizes.appVerticalLg *0.55,),
+
 
 
     ));
@@ -352,258 +384,422 @@ class _DogsBuyMeetSliderState extends State<DogsBuyMeetSlider> {
   }
   BuyOrMeet selector= BuyOrMeet.meet;
   bool isShowMenuBar= true;
+
+  bool showLike=false;
+  bool showUnlike=false;
+
+  @override
+  void initState() {
+    // setState(() {
+    //   steps = [
+    //     _step0(),
+    //     _step1(),
+    //   ];
+    // });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     AppSizes().init(context);
+   final List<Widget> steps = [
+     _step1()
+   ];
+   print("hi");
 
 
-    final List<Widget> steps = [
-      _step0(),
-      _step1(),
-    ];
+
     return BaseScaffold(
       backgroundImage: false,
       backgroudColor: kWhiteColor,
-      body: Stack(children: [
-        SwipeDetector(
-          child: Swiper(
+      body: GestureDetector(
+        onHorizontalDragUpdate: (details){
+          print(details.primaryDelta);
+          if(details.primaryDelta > 0.0 && details.primaryDelta <= 3.0)
+            {
+              //dislike
+              setState(() {
+                showUnlike=true;
+                showLike=false;
+              });
+
+            }
+          if(details.primaryDelta < 0.0 && details.primaryDelta >= -3.0)
+            {
+              //like
+              setState(() {
+                showLike=true;
+                showUnlike=false;
+
+              });
+
+            }
+        },
+        onHorizontalDragEnd: (details){
+          print("drag ended");
+          print(details.primaryVelocity);
+          print(details.velocity.pixelsPerSecond.distance);
+          setState(() {
+            showUnlike=false;
+          });
+          setState(() {
+            showLike=false;
+          });
+
+          if(details.primaryVelocity > 0.0 )
+          {
+            //dislike
+            setState(() {
+              showUnlike=false;
+            });
+
+          }
+          if(details.primaryVelocity < 0.0 )
+          {
+            //like
+            setState(() {
+              showLike=false;
+            });
+
+          }
+        },
+        child: Stack(children: [
+          Swiper(
           itemBuilder: (BuildContext context, int index) {
             return steps[index];
           },
           loop: false,
+            controller: SwiperController(),
           itemCount: steps.length,
-         // pagination:SwiperPagination(margin: EdgeInsets.only(bottom: AppSizes.appVerticalLg * 3.5)),
-        ),
-          onSwipeUp: () {
-            print("Swipe Up");
-          },
-          onSwipeDown: () {
-            print("Swipe Down");
-          },
-          onSwipeLeft: () {
-            print("Swipe Left");
-          },
-          onSwipeRight: () {
-            print("Swipe Right");
-          },
-        ),
-
-        Align(
-          alignment: Alignment.topRight,
-          child: Container(
-              margin: EdgeInsets.only(top: AppSizes.appVerticalLg * 0.45,
-                right: AppSizes.appVerticalLg * 0.2,
-              ),
-              child: InkWell(
-                  onTap: (){
-                   // showAlertDialog(context);
-                    showProfileAlertDialog(context);
-                  },
-                  child: Icon(FontAwesomeIcons.ellipsisV,color: kWhiteColor,))),
-
-        ),
-        Align(
-          alignment: Alignment.topCenter,
-
-          child: SingleChildScrollView(
+          // pagination:SwiperPagination(margin: EdgeInsets.only(bottom: AppSizes.appVerticalLg * 3.5)),
+          ),
+          Align(
+            alignment: Alignment.topRight,
             child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10))
+                margin: EdgeInsets.only(top: AppSizes.appVerticalLg * 0.45,
+                  right: AppSizes.appVerticalLg * 0.2,
+                ),
+                child: InkWell(
+                    onTap: (){
+                     // showAlertDialog(context);
+                      showProfileAlertDialog(context);
+                    },
+                    child: Icon(FontAwesomeIcons.ellipsisV,color: kWhiteColor,))),
+
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+
+            child: SingleChildScrollView(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10))
+                ),
+                padding: EdgeInsets.symmetric(
+                    vertical:AppSizes.appVerticalLg * 0.1
+                ),
+                margin: EdgeInsets.only(top: AppSizes.appVerticalLg * 0.4),
+
+
+                width: AppSizes.appVerticalLg * 3,
+                height: 40,
+                child: Row(children: [
+                  Expanded(child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(
+                      left: AppSizes.appVerticalLg *0.1,
+                    ),
+                    child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(AppSizes.appHorizontalLg * 0.3),
+
+                        ),
+                        color:selector==BuyOrMeet.buy ?kBlueColor : Colors.white,
+                        //  textColor:Colors.black,
+                        textColor: selector==BuyOrMeet.buy ? Colors.white : kBlackColor,
+                        onPressed:(){
+                          setState(() {
+                            selector=BuyOrMeet.buy;
+                            //  _notifier.signUpGender= "Male";
+                          });
+
+                        },
+                        child: Text(kBUY,textAlign: TextAlign.center, style: TextStyle(fontSize: 12,),)
+                    ),
+                  )),
+                  Expanded(child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(
+                      right: AppSizes.appVerticalLg *0.1,
+
+                    ),
+                    child: FlatButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(AppSizes.appHorizontalLg * 0.3),
+
+                        ),
+                        color:selector==BuyOrMeet.meet ? kBlueColor : Colors.white ,
+                        textColor: selector==BuyOrMeet.meet ? Colors.white:kBlackColor,
+                        disabledTextColor: Colors.white,
+
+                        onPressed:(){
+                          setState(() {
+                            selector=BuyOrMeet.meet;
+                            //  _notifier.signUpGender= "Male";
+                          });
+
+                        },
+                        child: Text(kMEET,textAlign: TextAlign.center, style: TextStyle(fontSize: 12,),)
+                    ),
+                  )),
+
+
+
+
+
+                ],),
               ),
-              padding: EdgeInsets.symmetric(
-                  vertical:AppSizes.appVerticalLg * 0.1
-              ),
-              margin: EdgeInsets.only(top: AppSizes.appVerticalLg * 0.4),
-
-
-              width: AppSizes.appVerticalLg * 3,
-              height: 40,
-              child: Row(children: [
-                Expanded(child: Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.only(
-                    left: AppSizes.appVerticalLg *0.1,
-                  ),
-                  child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppSizes.appHorizontalLg * 0.3),
-
-                      ),
-                      color:selector==BuyOrMeet.buy ?kBlueColor : Colors.white,
-                      //  textColor:Colors.black,
-                      textColor: selector==BuyOrMeet.buy ? Colors.white : kBlackColor,
-                      onPressed:(){
-                        setState(() {
-                          selector=BuyOrMeet.buy;
-                          //  _notifier.signUpGender= "Male";
-                        });
-
-                      },
-                      child: Text(kBUY,textAlign: TextAlign.center, style: TextStyle(fontSize: 12,),)
-                  ),
-                )),
-                Expanded(child: Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.only(
-                    right: AppSizes.appVerticalLg *0.1,
-
-                  ),
-                  child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(AppSizes.appHorizontalLg * 0.3),
-
-                      ),
-                      color:selector==BuyOrMeet.meet ? kBlueColor : Colors.white ,
-                      textColor: selector==BuyOrMeet.meet ? Colors.white:kBlackColor,
-                      disabledTextColor: Colors.white,
-
-                      onPressed:(){
-                        setState(() {
-                          selector=BuyOrMeet.meet;
-                          //  _notifier.signUpGender= "Male";
-                        });
-
-                      },
-                      child: Text(kMEET,textAlign: TextAlign.center, style: TextStyle(fontSize: 12,),)
-                  ),
-                )),
-
-
-
-
-
-              ],),
             ),
           ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child:  isShowMenuBar?Container(
-            width: double.infinity,
-            margin: EdgeInsets.only(
-              left: AppSizes.appHorizontalLg * 1,
-              right: AppSizes.appHorizontalLg * 1,
-              bottom: AppSizes.appHorizontalLg * 0.4,
-            ),
-            decoration: BoxDecoration(
-                color: kGrayBarBg,
-                borderRadius: BorderRadius.circular(20)
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(width: AppSizes.appHorizontalLg * 0.4,),
-                Padding(
-                  padding:  EdgeInsets.symmetric(
-                      vertical: AppSizes.appVerticalLg * 0.3
+          Align(
+            alignment: Alignment.bottomCenter,
+            child:  isShowMenuBar?Container(
+              width: double.infinity,
+              margin: EdgeInsets.only(
+                left: AppSizes.appHorizontalLg * 1,
+                right: AppSizes.appHorizontalLg * 1,
+                bottom: AppSizes.appHorizontalLg * 0.4,
+              ),
+              decoration: BoxDecoration(
+                  color: kGrayBarBg,
+                  borderRadius: BorderRadius.circular(20)
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(width: AppSizes.appHorizontalLg * 0.4,),
+                  Padding(
+                    padding:  EdgeInsets.symmetric(
+                        vertical: AppSizes.appVerticalLg * 0.3
+                    ),
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.pushNamed(context, PostViewPage.id);
+                      },
+                      child: Image(
+                          width: AppSizes.appHorizontalLg * 0.4,
+                          height: AppSizes.appVerticalLg * 0.4,
+                          image: AssetImage("images/home.png"
+                          )),
+                    ),
                   ),
-                  child: InkWell(
+                  SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
+                  Image(
+                      width: AppSizes.appHorizontalLg * 0.4,
+                      height: AppSizes.appVerticalLg * 0.4,
+                      image: AssetImage("images/gray_bar.png"
+                      )),
+                  SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
+                  InkWell(
                     onTap: (){
-                      Navigator.pushNamed(context, PostViewPage.id);
+                      Navigator.pushNamed(context, DogsStoreWebstoreDetail.id);
                     },
                     child: Image(
                         width: AppSizes.appHorizontalLg * 0.4,
                         height: AppSizes.appVerticalLg * 0.4,
-                        image: AssetImage("images/home.png"
+                        image: AssetImage("images/hard_icon.png"
                         )),
                   ),
-                ),
-                SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
-                Image(
-                    width: AppSizes.appHorizontalLg * 0.4,
-                    height: AppSizes.appVerticalLg * 0.4,
-                    image: AssetImage("images/gray_bar.png"
-                    )),
-                SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
-                InkWell(
-                  onTap: (){
-                    Navigator.pushNamed(context, DogsStoreWebstoreDetail.id);
-                  },
-                  child: Image(
+                  SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
+                  Image(
                       width: AppSizes.appHorizontalLg * 0.4,
                       height: AppSizes.appVerticalLg * 0.4,
-                      image: AssetImage("images/hard_icon.png"
+                      image: AssetImage("images/gray_bar.png"
                       )),
-                ),
-                SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
-                Image(
-                    width: AppSizes.appHorizontalLg * 0.4,
-                    height: AppSizes.appVerticalLg * 0.4,
-                    image: AssetImage("images/gray_bar.png"
-                    )),
-                SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
-                InkWell(
-                  onTap: (){
-                    Navigator.pushNamed(context, DogsStoreWebstorePage.id);
-                  },
-                  child: Image(
+                  SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
+                  InkWell(
+                    onTap: (){
+                      Navigator.pushNamed(context, DogsStoreWebstorePage.id);
+                    },
+                    child: Image(
+                        width: AppSizes.appHorizontalLg * 0.4,
+                        height: AppSizes.appVerticalLg * 0.4,
+                        image: AssetImage("images/card_icon.png"
+                        )),
+                  ),
+                  SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
+                  Image(
                       width: AppSizes.appHorizontalLg * 0.4,
                       height: AppSizes.appVerticalLg * 0.4,
-                      image: AssetImage("images/card_icon.png"
+                      image: AssetImage("images/gray_bar.png"
                       )),
-                ),
-                SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
-                Image(
-                    width: AppSizes.appHorizontalLg * 0.4,
-                    height: AppSizes.appVerticalLg * 0.4,
-                    image: AssetImage("images/gray_bar.png"
-                    )),
-                SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
-                InkWell(
-                  onTap: (){
-                    Navigator.pushNamed(context, LookForPage.id);
-                  },
-                  child: Image(
+                  SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
+                  InkWell(
+                    onTap: (){
+                      Navigator.pushNamed(context, LookForPage.id);
+                    },
+                    child: Image(
+                        width: AppSizes.appHorizontalLg * 0.4,
+                        height: AppSizes.appVerticalLg * 0.4,
+                        image: AssetImage("images/add_circle.png"
+                        )),
+                  ),
+                  SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
+                  Image(
                       width: AppSizes.appHorizontalLg * 0.4,
                       height: AppSizes.appVerticalLg * 0.4,
-                      image: AssetImage("images/add_circle.png"
+                      image: AssetImage("images/gray_bar.png"
                       )),
+                  SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
+                  InkWell(
+                    onTap: (){
+                      Navigator.pushNamed(context, PickLeaderPage.id);
+                    // Navigator.pushNamed(context, MatchDogsPage.id);
+                    },
+                    child: Image(
+                        width: AppSizes.appHorizontalLg * 0.4,
+                        height: AppSizes.appVerticalLg * 0.4,
+                        image: AssetImage("images/king_icon.png"
+                        )),
+                  ),
+                  SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
+
+
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        isShowMenuBar= false;
+                        print("--------------adlfjla----------------");
+                      });
+                    },
+                    child: Image(
+                        width: AppSizes.appHorizontalLg * 0.3,
+                        height: AppSizes.appVerticalLg * 0.3,
+                        image: AssetImage("images/cross_icon.png"
+                        )),
+                  ),
+
+
+
+                ],
+              ),
+            ): null,
+          ),
+          AnimatedOpacity(
+            opacity: showLike ? 1 : 0,
+            duration: Duration(milliseconds: 750),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                height: 300,
+                width: 150,
+                decoration: BoxDecoration(
+                  gradient: new LinearGradient(
+                      colors: [
+                        Colors.green.withOpacity(0.4),
+                        Colors.white.withOpacity(0.0),
+                      ],
+
+
+                      begin: const FractionalOffset(0.75, 0.0),
+                      end: const FractionalOffset(0.0, 0.0),
+                      stops: [0.0, 0.5],
+                      tileMode: TileMode.clamp),
+                  border: Border(
+                    top: BorderSide(
+                        color: Colors.transparent,
+                        width: 1
+                    ),
+                    bottom: BorderSide(
+                        color: Colors.transparent,
+                        width: 1
+                    ),
+                    right: BorderSide(
+                        color: Colors.transparent,
+                        width: 1
+                    ),
+                    left: BorderSide(
+                        color: Colors.transparent,
+                        width: 1
+                    ),
+                  ),
+
+
+                  borderRadius: BorderRadius.horizontal(
+                    left: Radius.circular(1500.0),
+                  ),
                 ),
-                SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
-                Image(
-                    width: AppSizes.appHorizontalLg * 0.4,
-                    height: AppSizes.appVerticalLg * 0.4,
-                    image: AssetImage("images/gray_bar.png"
-                    )),
-                SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
-                InkWell(
-                  onTap: (){
-                    Navigator.pushNamed(context, PickLeaderPage.id);
-                  // Navigator.pushNamed(context, MatchDogsPage.id);
-                  },
-                  child: Image(
-                      width: AppSizes.appHorizontalLg * 0.4,
-                      height: AppSizes.appVerticalLg * 0.4,
-                      image: AssetImage("images/king_icon.png"
-                      )),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Icon(
+                    Icons.favorite_border,
+                    size: 60,
+                    color: Colors.white,
+                  ),
                 ),
-                SizedBox(width: AppSizes.appHorizontalLg * 0.3,),
-
-
-                InkWell(
-                  onTap: (){
-                    setState(() {
-                      isShowMenuBar= false;
-                      print("--------------adlfjla----------------");
-                    });
-                  },
-                  child: Image(
-                      width: AppSizes.appHorizontalLg * 0.3,
-                      height: AppSizes.appVerticalLg * 0.3,
-                      image: AssetImage("images/cross_icon.png"
-                      )),
-                ),
-
-
-
-              ],
+              ),
             ),
-          ): null,
-        )
+          ),
+          AnimatedOpacity(
+            opacity: showUnlike ? 1 : 0,
+            duration: Duration(milliseconds: 750),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                height: 300,
+                width: 150,
+                decoration: BoxDecoration(
+                gradient: new LinearGradient(
+                colors: [
+                Colors.redAccent.withOpacity(0.4),
+                Colors.white.withOpacity(0.0),
+                ],
+
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(0.6, 0.0),
+                stops: [0.0, 2.0],
+                tileMode: TileMode.clamp),
+                  border: Border(
+                    top: BorderSide(
+                      color: Colors.transparent,
+                      width: 1
+                    ),
+                    bottom: BorderSide(
+                      color: Colors.transparent,
+                      width: 1
+                    ),
+                    right: BorderSide(
+                      color: Colors.transparent,
+                      width: 1
+                    ),
+                    left: BorderSide(
+                      color: Colors.transparent,
+                      width: 1
+                    ),
+                  ),
 
 
-      ],),
+                  borderRadius: BorderRadius.horizontal(
+                    right: Radius.circular(1500.0),
+                  ),
+                ),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Icon(
+                    Icons.close,
+                    size: 60,
+                    color: Colors.white,
+                  ),
+                ),
+
+              ),
+            ),
+          ),
+
+
+        ],),
+      ),
     );
   }
   Widget _step0() {

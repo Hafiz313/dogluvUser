@@ -51,14 +51,6 @@ class PackageLeaderPage extends StatelessWidget {
                   child: Text(kPosts,style: simpleText(color: kWhiteColor,fontSize: 18),)
           )
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Container(
-                margin: EdgeInsets.all(
-                  AppSizes.appVerticalLg * 0.5,
-                ),
-                child: CircleButton(iconData:FontAwesomeIcons.bars,iconColor: Colors.white ,iconSize: 15,)),
-          ),
           SingleChildScrollView(
             child: Container(
               margin: EdgeInsets.only(top: AppSizes.appVerticalLg * 1),
@@ -265,6 +257,14 @@ class PackageLeaderPage extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Container(
+                margin: EdgeInsets.all(
+                  AppSizes.appVerticalLg * 0.5,
+                ),
+                child: CircleButton(iconData:FontAwesomeIcons.bars,iconColor: Colors.white ,iconSize: 15,)),
           ),
 
 

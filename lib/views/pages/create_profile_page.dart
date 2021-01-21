@@ -13,10 +13,14 @@ import 'package:dogluv_user_app/core/veiwmodels/auth_viewmodel.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 
 class CreateProfilePage extends StatefulWidget {
   static const id="create_profile_page";
+  final  SwiperController swiperController ;
+
+  const CreateProfilePage({Key key, this.swiperController}) : super(key: key);
   @override
   _CreateProfilePageState createState() => _CreateProfilePageState();
 }
@@ -202,6 +206,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
             child: roundRectangleBtn(
                 bgColor: kWhiteColor,txt: kContinue ,textColor: kBlueColor
                 ,onPressed: (){
+                  widget.swiperController.next();
             }
             ),
           ),

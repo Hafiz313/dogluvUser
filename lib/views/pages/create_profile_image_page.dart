@@ -1,5 +1,3 @@
-
-
 import 'package:dogluv_user_app/core/veiwmodels/auth_viewmodel.dart';
 import 'package:dogluv_user_app/utils/app_color.dart';
 import 'package:dogluv_user_app/utils/app_constant.dart';
@@ -19,10 +17,14 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 
 class CreateProfileImagePage extends StatefulWidget {
   static const id="create_profile_image_page";
+  final  SwiperController swiperController ;
+
+  const CreateProfileImagePage({Key key, this.swiperController}) : super(key: key);
   @override
   _CreateProfileImagePageState createState() => _CreateProfileImagePageState();
 }
@@ -268,7 +270,10 @@ class _CreateProfileImagePageState extends State<CreateProfileImagePage> {
                           ),
 
                           width: double.infinity,
-                          child: roundTransparentBtn(txt: kSkip,bgColor: Color(0x00000000)),
+                          child: roundTransparentBtn(txt: kSkip,bgColor: Color(0x00000000),onPressed: (){
+                            widget.swiperController.next();
+
+                          }),
                         ),
                         SizedBox(height: AppSizes.appVerticalLg * 0.3,),
                       ],
